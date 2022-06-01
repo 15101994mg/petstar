@@ -1,0 +1,953 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:comp="http://www.devskin.com.br/componentepadrao"
+	xmlns:sec="http://www.develop.com/seguranca"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<ui:composition
+	template="/pages/protected/dash/home/home_principal.xhtml">
+	<ui:define name="body">
+		<style type="text/css">
+.ui-datatable {
+	overflow: auto
+}
+
+.ui-datatable-frozenlayout-left {
+	width: 20%;
+}
+
+.ui-datatable-frozenlayout-right {
+	width: 80%;
+}
+</style>
+		<h:form id="frmteste" prependId="false">
+
+			<div class="divHeaderTela py-2">
+				<div class="container-fluid">
+					<h3 class="text-white">Visões Contábeis</h3>
+					<p:separator />
+
+				</div>
+			</div>
+
+			<div class="container-fluid mt-2">
+				<div class="row">
+					<div class="col-12">
+						<div class="d-flex justify-content-end">
+							<p:selectOneMenu id="empresaSel"
+								value="#{consultaTrialController.empresaDTO}"
+								style="width: 500px;">
+								<f:selectItem itemLabel="Selecione a empresa" itemValue="" />
+								<f:selectItem itemLabel="Empresa setor ABC" itemValue="1" />
+								<f:selectItem itemLabel="Empresa setor XYZ" itemValue="2" />
+								<f:selectItem itemLabel="Empresa setor MNP" itemValue="2" />
+							</p:selectOneMenu>
+						</div>
+					</div>
+				</div>
+				<p:messages id="messages" showDetail="true" closable="true">
+					<p:autoUpdate />
+				</p:messages>
+				<ul class="nav justify-content-end sticky-top" id="main-nav">
+					<li class="nav-item"><a class="nav-link active"
+						href="#balancod">Trial Balance</a></li>
+						
+					<li class="nav-item"><a class="nav-link" href="#dre">Trial
+							Demonstrativo</a></li>
+					
+					<li class="nav-item"><a class="nav-link" href="#indicd">Trial
+							Indicadores</a></li>
+				</ul>
+				<div id="balancod">
+					<h2>Trial Balance</h2>
+
+					<div class="ui-grid ui-grid-responsive">
+
+						<div class="ui-grid-row">
+							<div class="ui-grid-col-12">
+								<p:toolbar>
+									<f:facet name="right">
+										<p:commandButton process="tblgridb" id="btnPesqConb"
+											title="Opções" icon="pi pi-table" value="Opções" />
+									</f:facet>
+								</p:toolbar>
+
+								<p:dataTable var="p" sortMode="multiple" id="tblgridb"
+									rowKey="#{p.id}" value="#{consultaTrialController.balanco}"
+									scrollHeight="440" scrollWidth="1100" scrollable="true"
+									rowIndexVar="indexVar" frozenColumns="1"
+									resizableColumns="true" style="min-height: 440px;"
+									rowHover="true" reflow="true" paginatorPosition="top"
+									emptyMessage="Nenhuma Conta Encontrada">
+
+									<p:column headerText="Balanço" style="#{p.estiloNome}">
+										<h:outputText value="#{p.nome}" />
+									</p:column>
+
+									<p:column headerText="#{consultaTrialController.anoMenos3}"
+										style="text-align: right;background: #007bff38; #{p.estilo}"
+										width="60">
+										<h:outputText value="#{p.valorAnoMenos3}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+
+									<p:column headerText="#{consultaTrialController.anoMenos2}"
+										style="text-align: right;background: #c99f1559; #{p.estilo}"
+										width="60">
+										<h:outputText value="#{p.valorAnoMenos2}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+
+									<p:column headerText="#{consultaTrialController.anoPassado}"
+										style="text-align: right;background: #2dc9152e; #{p.estilo}"
+										width="60">
+										<h:outputText value="#{p.valorAnoPassado}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+
+									<p:column headerText="Janeiro"
+										style="text-align: right;#{p.estilo};background: #6c757d38;"
+										width="60">
+										<h:outputText value="#{p.valorJaneiro}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="AV"
+										style="text-align: right;#{p.estilo};background: #6c757d38;"
+										width="15">
+										<h:outputText value="#{p.valorAvJaneiro}">
+											<f:convertNumber type="percent" maxFractionDigits="0"
+												locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="AH"
+										style="text-align: right;#{p.estilo};background: #6c757d38;"
+										width="15">
+										<h:outputText value="#{p.valorAhJaneiro}">
+											<f:convertNumber type="percent" maxFractionDigits="0"
+												locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+
+									<p:column headerText="Fevereiro"
+										style="text-align: right;#{p.estilo}" width="60">
+										<h:outputText value="#{p.valorFevereiro}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="AV" style="text-align: right;#{p.estilo}"
+										width="15">
+										<h:outputText value="#{p.valorAvFevereiro}">
+											<f:convertNumber type="percent" locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="AH" style="text-align: right;#{p.estilo}"
+										width="15">
+										<h:outputText value="#{p.valorAhFevereiro}">
+											<f:convertNumber type="percent" locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+
+									<p:column headerText="Março"
+										style="text-align: right;#{p.estilo};background: #6c757d38;"
+										width="60">
+										<h:outputText value="#{p.valorMarco}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="AV"
+										style="text-align: right;#{p.estilo};background: #6c757d38;"
+										width="15">
+										<h:outputText value="#{p.valorAvMarco}">
+											<f:convertNumber type="percent" locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="AH"
+										style="text-align: right;#{p.estilo};background: #6c757d38;"
+										width="15">
+										<h:outputText value="#{p.valorAhMarco}">
+											<f:convertNumber type="percent" locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+
+									<p:column headerText="Abril"
+										style="text-align: right;#{p.estilo}" width="60">
+										<h:outputText value="#{p.valorAbril}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="AV" style="text-align: right;#{p.estilo}"
+										width="15">
+										<h:outputText value="#{p.valorAvAbril}">
+											<f:convertNumber type="percent" locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="AH" style="text-align: right;#{p.estilo}"
+										width="15">
+										<h:outputText value="#{p.valorAhAbril}">
+											<f:convertNumber type="percent" locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+
+									<p:column headerText="Maio"
+										style="text-align: right;#{p.estilo};background: #6c757d38;"
+										width="60">
+										<h:outputText value="#{p.valorMaio}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="AV"
+										style="text-align: right;#{p.estilo};background: #6c757d38;"
+										width="15">
+										<h:outputText value="#{p.valorAvMaio}">
+											<f:convertNumber type="percent" locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="AH"
+										style="text-align: right;#{p.estilo};background: #6c757d38;"
+										width="15">
+										<h:outputText value="#{p.valorAhMaio}">
+											<f:convertNumber type="percent" locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+
+									<p:column headerText="Junho"
+										style="text-align: right;#{p.estilo}" width="60">
+										<h:outputText value="#{p.valorJunho}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="AV" style="text-align: right;#{p.estilo}"
+										width="15">
+										<h:outputText value="#{p.valorAvJunho}">
+											<f:convertNumber type="percent" locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="AH" style="text-align: right;#{p.estilo}"
+										width="15">
+										<h:outputText value="#{p.valorAhJunho}">
+											<f:convertNumber type="percent" locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+
+									<p:column headerText="Julho"
+										style="text-align: right;#{p.estilo};background: #6c757d38;"
+										width="60">
+										<h:outputText value="#{p.valorJulho}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="AV"
+										style="text-align: right;#{p.estilo};background: #6c757d38;"
+										width="15">
+										<h:outputText value="#{p.valorAvJulho}">
+											<f:convertNumber type="percent" locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="AH"
+										style="text-align: right;#{p.estilo};background: #6c757d38;"
+										width="15">
+										<h:outputText value="#{p.valorAhJulho}">
+											<f:convertNumber type="percent" locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+
+									<p:column headerText="Agosto"
+										style="text-align: right;#{p.estilo}" width="60">
+										<h:outputText value="#{p.valorAgosto}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="AV" style="text-align: right;#{p.estilo}"
+										width="15">
+										<h:outputText value="#{p.valorAvAgosto}">
+											<f:convertNumber type="percent" locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="AH" style="text-align: right;#{p.estilo}"
+										width="15">
+										<h:outputText value="#{p.valorAhAgosto}">
+											<f:convertNumber type="percent" locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+
+									<p:column headerText="Setembro"
+										style="text-align: right;#{p.estilo};background: #6c757d38;"
+										width="60">
+										<h:outputText value="#{p.valorSetembro}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="AV"
+										style="text-align: right;#{p.estilo};background: #6c757d38;"
+										width="15">
+										<h:outputText value="#{p.valorAvSetembro}">
+											<f:convertNumber type="percent" locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="AH"
+										style="text-align: right;#{p.estilo};background: #6c757d38;"
+										width="15">
+										<h:outputText value="#{p.valorAhSetembro}">
+											<f:convertNumber type="percent" locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+
+									<p:column headerText="Outubro"
+										style="text-align: right;#{p.estilo}" width="60">
+										<h:outputText value="#{p.valorOutubro}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="AV" style="text-align: right;#{p.estilo}"
+										width="15">
+										<h:outputText value="#{p.valorAvOutubro}">
+											<f:convertNumber type="percent" locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="AH" style="text-align: right;#{p.estilo}"
+										width="15">
+										<h:outputText value="#{p.valorAhOutubro}">
+											<f:convertNumber type="percent" locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+
+									<p:column headerText="Novembro"
+										style="text-align: right;#{p.estilo};background: #6c757d38;"
+										width="60">
+										<h:outputText value="#{p.valorNovembro}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="AV"
+										style="text-align: right;#{p.estilo};background: #6c757d38;"
+										width="15">
+										<h:outputText value="#{p.valorAvNovembro}">
+											<f:convertNumber type="percent" locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="AH"
+										style="text-align: right;#{p.estilo};background: #6c757d38;"
+										width="15">
+										<h:outputText value="#{p.valorAhNovembro}">
+											<f:convertNumber type="percent" locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+
+									<p:column headerText="Dezembro"
+										style="text-align: right;#{p.estilo}" width="60">
+										<h:outputText value="#{p.valorDezembro}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="AV" style="text-align: right;#{p.estilo}"
+										width="15">
+										<h:outputText value="#{p.valorAvDezembro}">
+											<f:convertNumber type="percent" locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="AH" style="text-align: right;#{p.estilo}"
+										width="15">
+										<h:outputText value="#{p.valorAhDezembro}">
+											<f:convertNumber type="percent" locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+
+									<p:column headerText="#{consultaTrialController.anoAtual}"
+										style="text-align: right;#{p.estilo};background: #005b9f38;"
+										width="60">
+										<h:outputText value="#{p.valorAnoAtual}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+
+								</p:dataTable>
+
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+				
+				<div id="dre">
+					<h2>Trial Demonstrativo</h2>
+					<div class="ui-grid ui-grid-responsive">
+
+						<div class="ui-grid-row">
+							<div class="ui-grid-col-12">
+								<div class="ui-grid ui-grid-responsive">
+									<div class="ui-grid-row">
+										<div class="ui-grid-col-12">
+											<p:toolbar>
+												<f:facet name="right">
+													<p:commandButton process="tblgrid" id="btnPesqCon"
+														title="Opções" icon="pi pi-table" value="Opções" />
+												</f:facet>
+											</p:toolbar>
+
+											<p:dataTable var="p" sortMode="multiple" id="tblgrid"
+												rowKey="#{p.id}"
+												value="#{consultaTrialController.demonstrativo}"
+												scrollHeight="440" scrollWidth="1100" scrollable="true"
+												rowIndexVar="indexVar" frozenColumns="1"
+												resizableColumns="true" style="min-height: 440px;"
+												rowHover="true" reflow="true" paginatorPosition="top"
+												emptyMessage="Nenhuma Conta Encontrada">
+												<p:column headerText="Demonstrativo" style="#{p.estiloNome}">
+													<h:outputText value="#{p.nome}" />
+												</p:column>
+
+												<p:column headerText="#{consultaTrialController.anoMenos3}"
+													style="text-align: right;background: #007bff38; #{p.estilo}"
+													width="60">
+													<h:outputText value="#{p.valorAnoMenos3}">
+														<f:convertNumber minFractionDigits="2"
+															maxFractionDigits="2" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+
+												<p:column headerText="#{consultaTrialController.anoMenos2}"
+													style="text-align: right;background: #c99f1559; #{p.estilo}"
+													width="60">
+													<h:outputText value="#{p.valorAnoMenos2}">
+														<f:convertNumber minFractionDigits="2"
+															maxFractionDigits="2" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+
+												<p:column headerText="#{consultaTrialController.anoPassado}"
+													style="text-align: right;background: #2dc9152e; #{p.estilo}"
+													width="60">
+													<h:outputText value="#{p.valorAnoPassado}">
+														<f:convertNumber minFractionDigits="2"
+															maxFractionDigits="2" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+
+												<p:column headerText="Janeiro"
+													style="text-align: right;#{p.estilo};background: #6c757d38;"
+													width="60">
+													<h:outputText value="#{p.valorJaneiro}">
+														<f:convertNumber minFractionDigits="2"
+															maxFractionDigits="2" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+												<p:column headerText="AV"
+													style="text-align: right;#{p.estilo};background: #6c757d38;"
+													width="15">
+													<h:outputText value="#{p.valorAvJaneiro}">
+														<f:convertNumber type="percent" maxFractionDigits="0"
+															locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+												<p:column headerText="AH"
+													style="text-align: right;#{p.estilo};background: #6c757d38;"
+													width="15">
+													<h:outputText value="#{p.valorAhJaneiro}">
+														<f:convertNumber type="percent" maxFractionDigits="0"
+															locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+
+												<p:column headerText="Fevereiro"
+													style="text-align: right;#{p.estilo}" width="60">
+													<h:outputText value="#{p.valorFevereiro}">
+														<f:convertNumber minFractionDigits="2"
+															maxFractionDigits="2" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+												<p:column headerText="AV"
+													style="text-align: right;#{p.estilo}" width="15">
+													<h:outputText value="#{p.valorAvFevereiro}">
+														<f:convertNumber type="percent" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+												<p:column headerText="AH"
+													style="text-align: right;#{p.estilo}" width="15">
+													<h:outputText value="#{p.valorAhFevereiro}">
+														<f:convertNumber type="percent" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+
+												<p:column headerText="Março"
+													style="text-align: right;#{p.estilo};background: #6c757d38;"
+													width="60">
+													<h:outputText value="#{p.valorMarco}">
+														<f:convertNumber minFractionDigits="2"
+															maxFractionDigits="2" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+												<p:column headerText="AV"
+													style="text-align: right;#{p.estilo};background: #6c757d38;"
+													width="15">
+													<h:outputText value="#{p.valorAvMarco}">
+														<f:convertNumber type="percent" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+												<p:column headerText="AH"
+													style="text-align: right;#{p.estilo};background: #6c757d38;"
+													width="15">
+													<h:outputText value="#{p.valorAhMarco}">
+														<f:convertNumber type="percent" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+
+												<p:column headerText="Abril"
+													style="text-align: right;#{p.estilo}" width="60">
+													<h:outputText value="#{p.valorAbril}">
+														<f:convertNumber minFractionDigits="2"
+															maxFractionDigits="2" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+												<p:column headerText="AV"
+													style="text-align: right;#{p.estilo}" width="15">
+													<h:outputText value="#{p.valorAvAbril}">
+														<f:convertNumber type="percent" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+												<p:column headerText="AH"
+													style="text-align: right;#{p.estilo}" width="15">
+													<h:outputText value="#{p.valorAhAbril}">
+														<f:convertNumber type="percent" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+
+												<p:column headerText="Maio"
+													style="text-align: right;#{p.estilo};background: #6c757d38;"
+													width="60">
+													<h:outputText value="#{p.valorMaio}">
+														<f:convertNumber minFractionDigits="2"
+															maxFractionDigits="2" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+												<p:column headerText="AV"
+													style="text-align: right;#{p.estilo};background: #6c757d38;"
+													width="15">
+													<h:outputText value="#{p.valorAvMaio}">
+														<f:convertNumber type="percent" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+												<p:column headerText="AH"
+													style="text-align: right;#{p.estilo};background: #6c757d38;"
+													width="15">
+													<h:outputText value="#{p.valorAhMaio}">
+														<f:convertNumber type="percent" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+
+												<p:column headerText="Junho"
+													style="text-align: right;#{p.estilo}" width="60">
+													<h:outputText value="#{p.valorJunho}">
+														<f:convertNumber minFractionDigits="2"
+															maxFractionDigits="2" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+												<p:column headerText="AV"
+													style="text-align: right;#{p.estilo}" width="15">
+													<h:outputText value="#{p.valorAvJunho}">
+														<f:convertNumber type="percent" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+												<p:column headerText="AH"
+													style="text-align: right;#{p.estilo}" width="15">
+													<h:outputText value="#{p.valorAhJunho}">
+														<f:convertNumber type="percent" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+
+												<p:column headerText="Julho"
+													style="text-align: right;#{p.estilo};background: #6c757d38;"
+													width="60">
+													<h:outputText value="#{p.valorJulho}">
+														<f:convertNumber minFractionDigits="2"
+															maxFractionDigits="2" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+												<p:column headerText="AV"
+													style="text-align: right;#{p.estilo};background: #6c757d38;"
+													width="15">
+													<h:outputText value="#{p.valorAvJulho}">
+														<f:convertNumber type="percent" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+												<p:column headerText="AH"
+													style="text-align: right;#{p.estilo};background: #6c757d38;"
+													width="15">
+													<h:outputText value="#{p.valorAhJulho}">
+														<f:convertNumber type="percent" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+
+												<p:column headerText="Agosto"
+													style="text-align: right;#{p.estilo}" width="60">
+													<h:outputText value="#{p.valorAgosto}">
+														<f:convertNumber minFractionDigits="2"
+															maxFractionDigits="2" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+												<p:column headerText="AV"
+													style="text-align: right;#{p.estilo}" width="15">
+													<h:outputText value="#{p.valorAvAgosto}">
+														<f:convertNumber type="percent" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+												<p:column headerText="AH"
+													style="text-align: right;#{p.estilo}" width="15">
+													<h:outputText value="#{p.valorAhAgosto}">
+														<f:convertNumber type="percent" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+
+												<p:column headerText="Setembro"
+													style="text-align: right;#{p.estilo};background: #6c757d38;"
+													width="60">
+													<h:outputText value="#{p.valorSetembro}">
+														<f:convertNumber minFractionDigits="2"
+															maxFractionDigits="2" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+												<p:column headerText="AV"
+													style="text-align: right;#{p.estilo};background: #6c757d38;"
+													width="15">
+													<h:outputText value="#{p.valorAvSetembro}">
+														<f:convertNumber type="percent" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+												<p:column headerText="AH"
+													style="text-align: right;#{p.estilo};background: #6c757d38;"
+													width="15">
+													<h:outputText value="#{p.valorAhSetembro}">
+														<f:convertNumber type="percent" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+
+												<p:column headerText="Outubro"
+													style="text-align: right;#{p.estilo}" width="60">
+													<h:outputText value="#{p.valorOutubro}">
+														<f:convertNumber minFractionDigits="2"
+															maxFractionDigits="2" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+												<p:column headerText="AV"
+													style="text-align: right;#{p.estilo}" width="15">
+													<h:outputText value="#{p.valorAvOutubro}">
+														<f:convertNumber type="percent" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+												<p:column headerText="AH"
+													style="text-align: right;#{p.estilo}" width="15">
+													<h:outputText value="#{p.valorAhOutubro}">
+														<f:convertNumber type="percent" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+
+												<p:column headerText="Novembro"
+													style="text-align: right;#{p.estilo};background: #6c757d38;"
+													width="60">
+													<h:outputText value="#{p.valorNovembro}">
+														<f:convertNumber minFractionDigits="2"
+															maxFractionDigits="2" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+												<p:column headerText="AV"
+													style="text-align: right;#{p.estilo};background: #6c757d38;"
+													width="15">
+													<h:outputText value="#{p.valorAvNovembro}">
+														<f:convertNumber type="percent" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+												<p:column headerText="AH"
+													style="text-align: right;#{p.estilo};background: #6c757d38;"
+													width="15">
+													<h:outputText value="#{p.valorAhNovembro}">
+														<f:convertNumber type="percent" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+
+												<p:column headerText="Dezembro"
+													style="text-align: right;#{p.estilo}" width="60">
+													<h:outputText value="#{p.valorDezembro}">
+														<f:convertNumber minFractionDigits="2"
+															maxFractionDigits="2" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+												<p:column headerText="AV"
+													style="text-align: right;#{p.estilo}" width="15">
+													<h:outputText value="#{p.valorAvDezembro}">
+														<f:convertNumber type="percent" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+												<p:column headerText="AH"
+													style="text-align: right;#{p.estilo}" width="15">
+													<h:outputText value="#{p.valorAhDezembro}">
+														<f:convertNumber type="percent" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+
+												<p:column headerText="#{consultaTrialController.anoAtual}"
+													style="text-align: right;#{p.estilo};background: #005b9f38;"
+													width="60">
+													<h:outputText value="#{p.valorAnoAtual}">
+														<f:convertNumber minFractionDigits="2"
+															maxFractionDigits="2" locale="pt_BR" />
+													</h:outputText>
+												</p:column>
+
+											</p:dataTable>
+
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div id="indicd">
+
+					<h2>Trial Indicadores</h2>
+
+					<div class="ui-grid ui-grid-responsive mb-5">
+
+						<div class="ui-grid-row">
+							<div class="ui-grid-col-12">
+								<p:toolbar>
+									<f:facet name="right">
+										<p:commandButton process="tblgridI" id="btnPesqConI"
+											title="Opções" icon="pi pi-table" value="Opções" />
+									</f:facet>
+								</p:toolbar>
+
+								<p:dataTable var="p" sortMode="multiple" id="tblgridI"
+									rowKey="#{p.id}" value="#{consultaTrialController.indicador}"
+									scrollHeight="440" scrollWidth="1100" scrollable="true"
+									rowIndexVar="indexVar" frozenColumns="1"
+									resizableColumns="true" style="min-height: 440px;"
+									rowHover="true" reflow="true" paginatorPosition="top"
+									emptyMessage="Nenhuma Conta Encontrada">
+									<p:column headerText="Indicador" style="#{p.estiloNome}">
+										<h:outputText value="#{p.nome}" />
+									</p:column>
+
+									<p:column headerText="#{consultaTrialController.anoMenos3}"
+										style="text-align: right;background: #007bff38; #{p.estilo}"
+										width="60">
+										<h:outputText value="#{p.valorAnoMenos3}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+
+									<p:column headerText="#{consultaTrialController.anoMenos2}"
+										style="text-align: right;background: #c99f1559; #{p.estilo}"
+										width="60">
+										<h:outputText value="#{p.valorAnoMenos2}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+
+									<p:column headerText="#{consultaTrialController.anoPassado}"
+										style="text-align: right;background: #2dc9152e; #{p.estilo}"
+										width="60">
+										<h:outputText value="#{p.valorAnoPassado}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+
+									<p:column headerText="Janeiro"
+										style="text-align: right;#{p.estilo};background: #6c757d38;"
+										width="60">
+										<h:outputText value="#{p.valorJaneiro}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+
+									<p:column headerText="Fevereiro"
+										style="text-align: right;#{p.estilo}" width="60">
+										<h:outputText value="#{p.valorFevereiro}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+
+									<p:column headerText="Março"
+										style="text-align: right;#{p.estilo};background: #6c757d38;"
+										width="60">
+										<h:outputText value="#{p.valorMarco}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+
+									<p:column headerText="Abril"
+										style="text-align: right;#{p.estilo}" width="60">
+										<h:outputText value="#{p.valorAbril}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+
+									<p:column headerText="Maio"
+										style="text-align: right;#{p.estilo};background: #6c757d38;"
+										width="60">
+										<h:outputText value="#{p.valorMaio}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+
+									<p:column headerText="Junho"
+										style="text-align: right;#{p.estilo}" width="60">
+										<h:outputText value="#{p.valorJunho}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+
+									<p:column headerText="Julho"
+										style="text-align: right;#{p.estilo};background: #6c757d38;"
+										width="60">
+										<h:outputText value="#{p.valorJulho}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+
+									<p:column headerText="Agosto"
+										style="text-align: right;#{p.estilo}" width="60">
+										<h:outputText value="#{p.valorAgosto}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+
+									<p:column headerText="Setembro"
+										style="text-align: right;#{p.estilo};background: #6c757d38;"
+										width="60">
+										<h:outputText value="#{p.valorSetembro}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+
+									<p:column headerText="Outubro"
+										style="text-align: right;#{p.estilo}" width="60">
+										<h:outputText value="#{p.valorOutubro}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+
+									<p:column headerText="Novembro"
+										style="text-align: right;#{p.estilo};background: #6c757d38;"
+										width="60">
+										<h:outputText value="#{p.valorNovembro}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+
+									<p:column headerText="Dezembro"
+										style="text-align: right;#{p.estilo}" width="60">
+										<h:outputText value="#{p.valorDezembro}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+
+									<p:column headerText="#{consultaTrialController.anoAtual}"
+										style="text-align: right;#{p.estilo};background: #005b9f38;"
+										width="60">
+										<h:outputText value="#{p.valorAnoAtual}">
+											<f:convertNumber minFractionDigits="2" maxFractionDigits="2"
+												locale="pt_BR" />
+										</h:outputText>
+									</p:column>
+
+								</p:dataTable>
+
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+
+			<script>
+				$(document).ready(function() {
+					$('ul.nav-pills li a').click(function(e) {
+						e.preventDefault();
+						$(this).tab('show');
+						window.scrollTo(0, 0);
+					});
+
+					$('ul.nav-pills > li > a').on('shown.bs.tab', function(e) {
+						var id = $(e.target).attr("href").substr(1);
+						window.location.hash = id;
+					});
+
+					var hash = window.location.hash;
+					$('ul.nav-pills li a[href="' + hash + '"]').tab('show');
+
+					$('body').scrollspy({
+						target : '#main-nav'
+					});
+
+					// Add smooth scrolling
+					$('#main-nav a').on('click', function(e) {
+						// Check for a hash value
+						if (this.hash !== '') {
+							// Prevent default behavior
+							e.preventDefault();
+
+							// Store hash
+							const hash = this.hash;
+
+							// Animate smooth scroll
+							$('html, body').animate({
+								scrollTop : $(hash).offset().top
+							}, 900, function() {
+								// Add hash to URL after scroll
+								window.location.hash = hash;
+							});
+						}
+					});
+				});
+			</script>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

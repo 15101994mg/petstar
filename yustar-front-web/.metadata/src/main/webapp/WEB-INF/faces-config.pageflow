@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf15887292646130" configfile="/yustar-front-web/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="*" x="122" y="2098" id="pf15887293076731" outlinks="pf15887293076732 pf16060194303072 pf16060702996175 pf16066990286740 pf16531871879968 pf16531871879969 pf165318718799610 pf165318718799611" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="home_principal.xhtml" x="338" y="178" id="pf15887293076733" referenceLink="//@navigationRule.0/@navigationCase.2/@toViewId|" inlinks="pf15887293076732" path="/pages/protected/dash/home/home_principal.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="dsh_home.xhtml" x="122" y="3442" id="pf15944148305474" referenceLink="//@navigationRule.0/@navigationCase.3/@toViewId|" path="/pages/protected/dash/home/home_principal.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="yst_cadastrese.xhtml" x="338" y="2482" id="pf16060194303073" referenceLink="//@navigationRule.0/@navigationCase.7/@toViewId|" inlinks="pf16060194303072" path="/pages/public/cadastro/yst_cadastrese.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="loginpage.xhtml" x="338" y="2866" id="pf16060702996176" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf16060702996175" path="/pages/public/login/loginpage.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="profile_page2.xhtml" x="338" y="4018" id="pf16066990286743" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" inlinks="pf16066990286740" path="/pages/profile/profile_page2.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="yst_manterpainelusuarios.xhtml" id="pf165318718799612" referenceLink="//@navigationRule.0/@navigationCase.3/@toViewId|" inlinks="pf16531871879968" path="/pages/protected/yustar/administrador/yst_manterpainelusuarios.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="yst_manterpainelservico.xhtml" id="pf165318718799613" referenceLink="//@navigationRule.0/@navigationCase.4/@toViewId|" inlinks="pf16531871879969" path="/pages/protected/yustar/administrador/yst_manterpainelservico.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="yst_manterpainelusuarios.xhtml" id="pf165318718799614" referenceLink="//@navigationRule.0/@navigationCase.5/@toViewId|" inlinks="pf165318718799610" path="/pages/protected/yustar/fornecedor/yst_manterservicofornecedor.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="yst_painelpesquisafornecedor.xhtml" id="pf165318718799615" referenceLink="//@navigationRule.0/@navigationCase.6/@toViewId|" inlinks="pf165318718799611" path="/pages/protected/yustar/cliente/yst_painelpesquisafornecedor.xhtml"/>
+  <links id="pf15887293076732" target="pf15887293076733" source="pf15887293076731" outcome="HOME" redirect="true"/>
+  <links id="pf16060194303072" target="pf16060194303073" source="pf15887293076731" outcome="CADASTRE_SE" redirect="true"/>
+  <links id="pf16060702996175" target="pf16060702996176" source="pf15887293076731" outcome="LOGIN" redirect="true"/>
+  <links id="pf16066990286740" target="pf16066990286743" source="pf15887293076731" outcome="FEED" redirect="true"/>
+  <links id="pf16531871879968" target="pf165318718799612" source="pf15887293076731" outcome="PAINEL_USUARIO_ADMINISTRADOR" redirect="true"/>
+  <links id="pf16531871879969" target="pf165318718799613" source="pf15887293076731" outcome="PAINEL_SERVICO_ADMINISTRADOR" redirect="true"/>
+  <links id="pf165318718799610" target="pf165318718799614" source="pf15887293076731" outcome="CRUD_SERVICO_FORNECEDOR" redirect="true"/>
+  <links id="pf165318718799611" target="pf165318718799615" source="pf15887293076731" outcome="PAINEL_PESQUISA_FORNECEDOR" redirect="true"/>
+</pageflow:Pageflow>

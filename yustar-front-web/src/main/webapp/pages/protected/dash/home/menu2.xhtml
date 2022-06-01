@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:comp="http://www.devskin.com.br/componentepadrao"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<ui:composition>
+	<div id="dvmnu">
+		<nav jsf:id="menu"> <label for="tm" id="toggle-menu">Navigation
+			<span class="drop-icon">▾</span>
+		</label> <input type="checkbox" id="tm" />
+		<ul class="main-menu clearfix">
+			<li><a href="#">Cadastro<span class="drop-icon">▾</span>
+					<label title="Toggle Drop-down" class="drop-icon" for="sm1">▾</label>
+			</a> <input type="checkbox" id="sm1" />
+				<ul class="sub-menu">
+					<comp:menuitem2 linkmenu="CADASTRO_USUARIO" rendered="#{PermissaoFrontService.autorizar('DSH001')}" nomemenu="Usuários"/>
+					<li><a href="#">Instituicao</a></li>
+					<li><a href="#">Grupo</a></li>
+					<li><a href="#">Empresa</a></li>
+					<comp:submenu2 id="cad" nomemenu="cadteste">
+						<ui:define name="cadcomps">
+							<comp:menuitem2 linkmenu="CADASTRO_USUARIO" nomemenu="TEste1"/>
+							<comp:menuitem2 linkmenu="CADASTRO_USUARIO" nomemenu="TEste2"/>
+							<comp:menuitem2 linkmenu="CADASTRO_USUARIO" nomemenu="TEste3"/>
+						</ui:define>
+					</comp:submenu2>
+
+					<li><a href="#">Item 2.2 <span class="drop-icon">▾</span>
+							<label title="Toggle Drop-down" class="drop-icon" for="sm2">▾</label>
+					</a> <input type="checkbox" id="sm2" />
+						<ul class="sub-menu">
+							<li><a href="#">Item 2.2.1</a></li>
+							<li><a href="#">Item 2.2.2</a></li>
+							<li><a href="#">Item 2.2.3</a></li>
+						</ul></li>
+					<li><a href="#">Item 3.4</a></li>
+				</ul></li>
+			<li><a href="#">Another Sample</a></li>
+		</ul>
+		</nav>
+	</div>
+</ui:composition>
+</html>

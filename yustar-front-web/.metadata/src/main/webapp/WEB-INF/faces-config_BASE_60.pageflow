@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf15887292646130" configfile="/yustar-front-web/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="*" x="122" y="754" id="pf15887293076731" outlinks="pf15887293076732 pf15914711556702 pf15921802517710 pf15935604676800 pf15935604790563 pf15938045832911 pf15944148305463 pf16060194303072 pf16060702996175" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="home_principal.xhtml" x="338" y="178" id="pf15887293076733" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf15887293076732" path="/pages/protected/dash/home/home_principal.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="dsh_consultaplanocontas.xhtml" x="338" y="562" id="pf15914711556703" referenceLink="//@navigationRule.0/@navigationCase.2/@toViewId|" inlinks="pf15914711556702" path="/pages/protected/dash/configuracao/dsh_consultaplanocontas.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="dsh_importacaoarquivo.xhtml" x="338" y="946" id="pf15921802517711" referenceLink="//@navigationRule.0/@navigationCase.5/@toViewId|" inlinks="pf15921802517710" path="/pages/protected/dash/importacao/dsh_importacaoarquivo.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="dsh_consultaplanocontas.xhtml" x="338" y="1330" id="pf15935604676802" referenceLink="//@navigationRule.0/@navigationCase.3/@toViewId|" inlinks="pf15935604676800" path="/pages/protected/dash/configuracao/dsh_dadosinstituicao.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="dsh_cadastroconfiguracaodre.xhtml" id="pf15935604790564" referenceLink="//@navigationRule.0/@navigationCase.4/@toViewId|" inlinks="pf15935604790563" path="/pages/protected/dash/configuracao/dsh_cadastroconfiguracaodre.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="dsh_consultatrial.xhtml" id="pf15938045832912" referenceLink="//@navigationRule.0/@navigationCase.6/@toViewId|" inlinks="pf15938045832911" path="/pages/protected/dash/trial/dsh_consultatrial.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="dsh_home.xhtml" id="pf15944148305474" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" inlinks="pf15944148305463" path="/pages/protected/dash/trial/dsh_home.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="yst_cadastrese.xhtml" id="pf16060194303073" referenceLink="//@navigationRule.0/@navigationCase.7/@toViewId|" inlinks="pf16060194303072" path="/pages/public/cadastro/yst_cadastrese.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="loginpage.xhtml" id="pf16060702996176" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf16060702996175" path="/pages/public/login/loginpage.xhtml"/>
+  <links id="pf15887293076732" target="pf15887293076733" source="pf15887293076731" outcome="HOME" redirect="true"/>
+  <links id="pf15914711556702" target="pf15914711556703" source="pf15887293076731" outcome="CONSULTA_PLANOCONTAS" redirect="true"/>
+  <links id="pf15921802517710" target="pf15921802517711" source="pf15887293076731" outcome="IMPORTACAO_ARQUIVOS" redirect="true"/>
+  <links id="pf15935604676800" target="pf15935604676802" source="pf15887293076731" outcome="CONSULTA_DADOS_GERAIS" redirect="true"/>
+  <links id="pf15935604790563" target="pf15935604790564" source="pf15887293076731" outcome="CONFIGURACAO_DRE" redirect="true"/>
+  <links id="pf15938045832911" target="pf15938045832912" source="pf15887293076731" outcome="TRIAL" redirect="true"/>
+  <links id="pf15944148305463" target="pf15944148305474" source="pf15887293076731" outcome="DASH" redirect="true"/>
+  <links id="pf16060194303072" target="pf16060194303073" source="pf15887293076731" outcome="CADASTRE_SE" redirect="true"/>
+  <links id="pf16060702996175" target="pf16060702996176" source="pf15887293076731" outcome="LOGIN" redirect="true"/>
+</pageflow:Pageflow>

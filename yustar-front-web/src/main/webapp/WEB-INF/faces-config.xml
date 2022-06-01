@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd"
+	version="2.3">
+
+
+	<navigation-rule>
+		<navigation-case>
+			<display-name>loginpage.xhtml</display-name>
+			<from-outcome>LOGIN</from-outcome>
+			<to-view-id>/pages/public/login/loginpage.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<display-name>profile_page2.xhtml</display-name>
+			<from-outcome>FEED</from-outcome>
+			<to-view-id>/pages/profile/profile_page2.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		
+		<navigation-case>
+			<display-name>home_principal.xhtml</display-name>
+			<from-outcome>HOME</from-outcome>
+			<to-view-id>/pages/protected/dash/home/home_principal.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<display-name>yst_manterpainelusuarios.xhtml</display-name>
+			<from-outcome>PAINEL_USUARIO_ADMINISTRADOR</from-outcome>
+			<to-view-id>/pages/protected/yustar/administrador/yst_manterpainelusuarios.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<display-name>yst_manterpainelservico.xhtml</display-name>
+			<from-outcome>PAINEL_SERVICO_ADMINISTRADOR</from-outcome>
+			<to-view-id>/pages/protected/yustar/administrador/yst_manterpainelservico.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<display-name>yst_manterpainelusuarios.xhtml</display-name>
+			<from-outcome>CRUD_SERVICO_FORNECEDOR</from-outcome>
+			<to-view-id>/pages/protected/yustar/fornecedor/yst_manterservicofornecedor.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<display-name>yst_painelpesquisafornecedor.xhtml</display-name>
+			<from-outcome>PAINEL_PESQUISA_FORNECEDOR</from-outcome>
+			<to-view-id>/pages/protected/yustar/cliente/yst_painelpesquisafornecedor.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+
+		<navigation-case>
+			<display-name>yst_cadastrese.xhtml</display-name>
+			<from-outcome>CADASTRE_SE</from-outcome>
+			<to-view-id>/pages/public/cadastro/yst_cadastrese.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+</faces-config>

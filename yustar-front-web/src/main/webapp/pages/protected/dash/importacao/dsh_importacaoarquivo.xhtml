@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:comp="http://www.devskin.com.br/componentepadrao"
+	xmlns:sec="http://www.develop.com/seguranca"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<ui:composition
+	template="/pages/protected/dash/home/home_principal.xhtml">
+	<ui:define name="body">
+
+		<h:form id="frmteste" enctype="multipart/form-data">
+			<h2>Importação de arquivos</h2>
+			<p class="text-muted mb-3">Tela de importação de arquivos</p>
+			<hr data-content="AND" style="background: #999; height: 1px;" />
+			<p:growl globalOnly="true" showDetail="true" autoUpdate="true"
+				id="growl" widgetVar="Growl" sticky="true" />
+
+			<div class="ui-grid ui-grid-responsive">
+
+				<div class="ui-grid-row mb-3">
+					<div class="ui-grid-col-3 mr-2">
+						<div class="ui-grid ui-grid-responsive MarRight10">
+							<div class="ui-grid-col MarRight10">
+
+								<div class="ui-fluid ui-grid-row">
+									<p:selectOneMenu id="txtempresa" styleClass="consinput"
+										value="#{importacaoArquivoController.empresa.nomeEmpresaGrupoConcatenado}" placeholder="empresa"
+										effect="fold" editable="true">
+										<f:selectItems
+											value="#{importacaoArquivoController.empresas}" />
+									</p:selectOneMenu>
+								
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="ui-grid-col-3 mr-2">
+						<div class="ui-grid ui-grid-responsive MarRight10">
+							<div class="ui-grid-col MarRight10">
+
+								<div class="ui-fluid ui-grid-row">
+									<p:selectOneMenu id="txtperiodo" styleClass="consinput" placeholder="periodo"
+										value="#{importacaoArquivoController.periodo.periodoConcatenado}"
+										effect="fold" editable="true">
+										<f:selectItems
+											value="#{importacaoArquivoController.periodos}" />
+									</p:selectOneMenu>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="ui-grid-col-2">
+						<div class="ui-grid ui-grid-responsive MarRight10">
+							<h:commandButton value="Pesquisar" class="btn btn-dark btn-block"
+								action="#{importacaoArquivoControler.obterImportacoesPorEmpresaPeriodo()}"
+								update="growl,tblgrid" process="growl,tblgrid" />
+						</div>
+					</div>
+
+				</div>
+
+				<div class="ui-grid-row">
+					<div class="ui-grid-col-12">
+						<div class="ui-grid ui-grid-responsive">
+							<div class="ui-grid-row">
+								<div class="ui-grid-col-12">
+									<p:dataTable var="p" sortMode="multiple" id="tblgrid"
+										value="#{importacaoArquivoControler.controles}"
+										scrollHeight="270" scrollable="true" rowIndexVar="indexVar"
+										style="min-height: 20px;" rowHover="true" reflow="true"
+										emptyMessage="Nenhum Arquivo importado">
+
+										<p:column headerText="Nome">
+											<h:outputText value="#{p.tipoProcesso.descricao}" />
+										</p:column>
+
+										<p:column headerText="Status">
+											<h:outputText value="#{p.statusProcesso.descricao}" />
+										</p:column>
+
+										<p:column headerText="acoes">
+											<p:fileUpload value="#{uploadBasicoBean.uploadedFile}" mode="simple"/>
+											  <p:commandButton value="Enviar" ajax="false"
+											          actionListener="#{uploadBasicoBean.upload}" />										
+										</p:column>
+
+
+									</p:dataTable>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

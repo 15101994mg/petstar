@@ -1,0 +1,114 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>yustar-front</artifactId>
+		<groupId>br.com.develop</groupId>
+		<version>1.0.0.0</version>
+	</parent>
+	<version>1.0.0.0</version>
+	<groupId>br.com.develop</groupId>
+	<artifactId>yustar-front-web</artifactId>
+	<packaging>war</packaging>
+	<name>yustar-front-web</name>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	
+	<repositories>
+		<repository>  
+			<id>prime-repo</id>  
+			<name>PrimeFaces Maven Repository</name>  
+			<url>http://repository.primefaces.org</url>  
+			<layout>default</layout>  
+		</repository>  	
+	</repositories>
+
+	<dependencies>
+	<dependency>
+    <groupId>com.sun.faces</groupId>
+    <artifactId>jsf-impl</artifactId>
+    <version>2.2.20</version>
+</dependency>
+	<dependency>
+    <groupId>com.sun.faces</groupId>
+    <artifactId>jsf-impl</artifactId>
+    <version>2.3.9.SP01</version>
+</dependency>
+
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>yustar-front-rs</artifactId>
+			<version>1.0.0.0</version>
+			<scope>compile</scope>
+		</dependency>
+ 		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>yustar-back-rs-model</artifactId>
+			<version>1.0.0.0</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		
+		
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.primefaces.extensions</groupId>
+			<artifactId>primefaces-extensions</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.jboss.spec.javax.faces</groupId>
+		    <artifactId>jboss-jsf-api_2.3_spec</artifactId>
+			<scope>compile</scope>
+		</dependency>
+
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<scope>compile</scope>
+		</dependency>
+
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>javax.servlet.jsp-api</artifactId>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+		    <groupId>javax.interceptor</groupId>
+		    <artifactId>javax.interceptor-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.spec.javax.el</groupId>
+			<artifactId>jboss-el-api_3.0_spec</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- ejb -->
+		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+	</dependencies>
+</project>

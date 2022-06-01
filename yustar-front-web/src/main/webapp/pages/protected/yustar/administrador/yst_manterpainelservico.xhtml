@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:comp="http://www.devskin.com.br/componentepadrao"
+	xmlns:sec="http://www.develop.com/seguranca"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<ui:composition
+	template="/pages/protected/dash/home/home_principal.xhtml">
+	<ui:define name="body">
+
+		<h:form id="frmpnlsrv" enctype="multipart/form-data">
+			<h2>Painel de Serviços</h2>
+			<p class="text-muted mb-3">Painel de Serviços</p>
+			<hr data-content="AND" style="background: #999; height: 1px;" />
+			<p:growl globalOnly="true" showDetail="true" autoUpdate="true"
+				id="growl" widgetVar="Growl" sticky="true" />
+
+			<p:panelGrid layout="grid" styleClass="showcase-text-align-center"
+				columns="1"
+				rendered="#{painelServicoControllerBean.visualizarGrid()}">
+
+				<p:panel header="Filtro">
+					<p:panelGrid columns="5" layout="grid"
+						styleClass="showcase-text-align-center">
+
+						<p:autoComplete id="acgr" minQueryLength="3"
+							value="#{painelServicoControllerBean.grupo}"
+							placeholder="Grupo de Serviço"
+							emptyMessage="Nenhum resultado encontrado" var="g"
+							itemLabel="#{g.nome}" itemValue="#{g}"
+							converter="entityConverter"
+							completeMethod="#{painelServicoControllerBean.obterGrupos}"
+							effect="fade">
+							<p:ajax event="change" listener="#{painelServicoControllerBean.limparServicoFiltro()}" update="acsrvc" />
+						</p:autoComplete>
+						<p:autoComplete id="acsrvc" minQueryLength="3"
+							value="#{painelServicoControllerBean.tipoServico}"
+							placeholder="Tipo de Serviço"
+							emptyMessage="Nenhum resultado encontrado" var="s"
+							itemLabel="#{s.nome}" itemValue="#{s}"
+							converter="entityConverter"
+							completeMethod="#{painelServicoControllerBean.obterServicos}"
+							effect="fade">
+						</p:autoComplete>
+						<h:commandButton value="Pesquisar" class="btn btn-dark btn-block"
+							action="#{painelServicoControllerBean.pesquisar()}"
+							update="growl,frmpnlsrv" process="growl,frmpnlsrv" />
+						<h:commandButton value="Novo Grupo de Serviço"
+							class="btn btn-dark btn-block"
+							action="#{painelServicoControllerBean.novoGrupo()}"
+							update="growl,frmpnlsrv" process="growl,frmpnlsrv" />
+						<h:commandButton value="Novo Tipo de Serviço"
+							class="btn btn-dark btn-block"
+							action="#{painelServicoControllerBean.novoServico()}"
+							update="growl,frmpnlsrv" process="growl,frmpnlsrv" />
+
+
+					</p:panelGrid>
+				</p:panel>
+				<p:dataTable var="s" sortMode="multiple" id="tblgrid"
+					value="#{painelServicoControllerBean.servicos}" scrollHeight="270"
+					scrollable="true" rowIndexVar="indexVar" style="min-height: 20px;"
+					rowHover="true" reflow="true"
+					emptyMessage="Nenhum Serviço importado">
+					<p:column headerText="Nome">
+						<h:outputText value="#{s.nome}" />
+					</p:column>
+					<p:column headerText="Descrição">
+						<h:outputText value="#{s.descricao}" />
+					</p:column>
+				</p:dataTable>
+
+			</p:panelGrid>
+			<p:panelGrid layout="flex" columns="2"
+				styleClass="showcase-text-align-center"
+				rendered="#{painelServicoControllerBean.visualizarFichaGrupo()}">
+					<h:panelGrid columns="1"
+							styleClass="showcase-text-align-center">
+							<p:inputText id="itnmgrp"
+									placeholder="Nome"
+									value="#{painelServicoControllerBean.grupoGravacao.nome}" />
+							
+
+						</h:panelGrid> 
+						<p:panelGrid columns="2" layout="grid" id="pnlgrp"
+							styleClass="showcase-text-align-center">
+							<p:commandButton id="btcnclgrp" update="frmpnlsrv"
+								action="#{painelServicoControllerBean.cancelarGrupo()}"
+								value="Cancelar" />
+							<p:commandButton id="btsvgrp"
+								action="#{painelServicoControllerBean.gravarGrupo()}"
+								value="Salvar" update="frmpnlsrv" process="@form" />
+						</p:panelGrid>
+					
+			</p:panelGrid>
+
+			<p:panelGrid layout="grid" columns="1"
+				styleClass="showcase-text-align-center"
+				rendered="#{painelServicoControllerBean.visualizarFichaTipo()}">
+					<h:panelGrid columns="1" layout="grid"
+							styleClass="showcase-text-align-center">
+							<p:autoComplete id="acgrvtp"
+									minQueryLength="3"
+									value="#{painelServicoControllerBean.grupoGravacao}"
+									placeholder="Grupo" emptyMessage="Nenhum resultado encontrado"
+									var="g" itemLabel="#{g.nome}" itemValue="#{g}"
+									converter="entityConverter"
+									completeMethod="#{painelServicoControllerBean.obterGrupos}"
+									effect="fade">
+								</p:autoComplete>
+ 							<p:inputText id="itnmts"
+									placeholder="Nome"
+									value="#{painelServicoControllerBean.tipoServicoGravacao.nome}" />
+							
+							<p:inputText id="itdsts"
+									placeholder="Descrição"
+									value="#{painelServicoControllerBean.tipoServicoGravacao.descricao}" />
+
+
+						</h:panelGrid> 
+						
+						<p:panelGrid columns="3" layout="grid" id="pnltp"
+							styleClass="showcase-text-align-center">
+							<p:commandButton id="btcncltp" update="frmpnlsrv"
+								action="#{painelServicoControllerBean.cancelarServico()}"
+								value="Cancelar" />
+							<p:commandButton id="btsvtp"
+								action="#{painelServicoControllerBean.gravarServico()}"
+								value="Salvar" update="frmpnlsrv" process="@form" />
+						</p:panelGrid>
+			</p:panelGrid>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

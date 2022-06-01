@@ -1,0 +1,32 @@
+.bdy_login{
+    background-color:#33528c;
+}
+
+legend{
+    text-align:center;
+}
+
+#dvprinc{
+    padding-top:20px !important;
+    background-color:#fafafa;
+    margin:auto;
+    max-width:280px;
+    border-width:2px;
+    border-style:unset;
+    border-radius: 30px 30px 30px 30px;
+  -webkit-box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.77);
+  -moz-box-shadow:    0px 10px 10px rgba(0, 0, 0, 0.77);
+  box-shadow:         0px 10px 10px rgba(0, 0, 0, 0.77); 
+
+    
+}
+
+#dvlogin{
+    padding-left:40px;
+    padding-right:40px;
+    padding-bottom:40px;
+}
+
+#frmlogin{
+    padding-top:100px;
+}

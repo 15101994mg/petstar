@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:comp="http://www.devskin.com.br/componentepadrao"
+	xmlns:sec="http://www.develop.com/seguranca"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<ui:composition
+	template="/pages/protected/dash/home/home_principal.xhtml">
+	<ui:define name="body">
+
+		<h:form id="frmpnlsrv">
+			<h2>Pesquisa de Profissionais</h2>
+			<p class="text-muted mb-3">
+				<h:outputText
+					value="#{painelBuscaFornecedorControllerBean.usuario.nome}" />
+			</p>
+			<hr data-content="AND" style="background: #999; height: 1px;" />
+			<p:growl globalOnly="true" showDetail="true" autoUpdate="true"
+				id="growl" widgetVar="Growl" sticky="true" />
+
+			<p:panelGrid columns="2" layout="flex" contentStyleClass="ui-fluid"
+				rendered="#{painelBuscaFornecedorControllerBean.modoPesquisa()}">
+
+
+				<p:outputLabel for="acbairro" value="Bairro" />
+				<p:autoComplete id="acbairro" minQueryLength="3"
+					value="#{painelBuscaFornecedorControllerBean.bairro}"
+					placeholder="Digite o bairro aqui"
+					emptyMessage="Nenhum resultado encontrado"
+					converter="entityConverter" var="b"
+					itemLabel="#{b.descricaoCompleta}" itemValue="#{b}"
+					completeMethod="#{painelBuscaFornecedorControllerBean.obterBairros}"
+					effect="fade" />
+
+				<p:outputLabel for="acsrvc" value="Serviço" />
+				<p:autoComplete id="acsrvc" minQueryLength="3"
+					value="#{painelBuscaFornecedorControllerBean.tipoServico}"
+					placeholder="Tipo de Serviço"
+					emptyMessage="Nenhum resultado encontrado" var="s"
+					itemLabel="#{s.nome}" itemValue="#{s}" converter="entityConverter"
+					completeMethod="#{painelBuscaFornecedorControllerBean.obterServicos}"
+					effect="fade">
+				</p:autoComplete>
+
+				<p:commandButton value="Pesquisar" class="btn btn-dark btn-block"
+					action="#{painelBuscaFornecedorControllerBean.pesquisar()}"
+					update="growl,frmpnlsrv" process="growl,frmpnlsrv" />
+			</p:panelGrid>
+			<p:panel
+				rendered="#{painelBuscaFornecedorControllerBean.modoPesquisa()}">
+				<p:dataTable var="p" sortMode="multiple" id="tblgrid"
+					value="#{painelBuscaFornecedorControllerBean.linhasFornecedor}"
+					scrollHeight="270" scrollable="true" rowIndexVar="indexVar"
+					style="min-height: 20px;" rowHover="true" reflow="true"
+					emptyMessage="Nenhum Profissional encontrado">
+					<p:column headerText="Nome">
+						<h:outputText value="#{p.nome}" />
+					</p:column>
+					<p:column headerText="Tipo de Serviço">
+						<h:outputText value="#{p.nomeServico}" />
+					</p:column>
+					<p:column headerText="Municipio">
+						<h:outputText value="#{p.municipio}" />
+					</p:column>
+					<p:column headerText="Zona">
+						<h:outputText value="#{p.zona}" />
+					</p:column>
+					<p:column headerText="Bairro">
+						<h:outputText value="#{p.bairro}" />
+					</p:column>
+					<p:column headerText="Avaliação">
+						<p:panelGrid columns="2" layout="grid">
+							<i class="pi pi-star"></i>
+							<h:outputText value="#{p.mediaNota}" />
+						</p:panelGrid>
+					</p:column>
+					<p:column headerText="Num. Avaliações">
+						<h:outputText value="#{p.quantidadeServicos}" />
+					</p:column>
+					<p:column headerText="#">
+
+						<h:commandButton value="Detalhes" class="btn btn-dark btn-block"
+							action="#{painelBuscaFornecedorControllerBean.exibirDetalhes(p)}"
+							update="frmpnlsrv" process="frmpnlsrv" />
+
+					</p:column>
+				</p:dataTable>
+
+			</p:panel>
+
+			<p:panel header="Detalhe"
+				rendered="#{painelBuscaFornecedorControllerBean.modoDetalhe()}">
+				<p:panelGrid id="pnldetalhe" columns="2" layout="grid"
+					styleClass="showcase-text-align-center">
+					<p:outputLabel for="lblnome" value="Nome" />
+					<p:outputLabel id="lblnome" style="font-weight:bold"
+						value="#{painelBuscaFornecedorControllerBean.fornecedorSelecionado.nome}" />
+
+					<p:outputLabel for="lblsrvc" value="Serviço" />
+					<p:outputLabel id="lblsrvc" style="font-weight:bold"
+						value="#{painelBuscaFornecedorControllerBean.fornecedorSelecionado.nomeServico}" />
+
+					<p:outputLabel for="lblmdnt" value="Avaliação" />
+					<p:panelGrid columns="2">
+						<i class="pi pi-star"></i>
+						<h:outputText id="lblmdnt" style="font-weight:bold"
+							value="#{painelBuscaFornecedorControllerBean.fornecedorSelecionado.mediaNota}" />
+					</p:panelGrid>
+
+					<p:outputLabel for="lblmncp" value="Municipio" />
+					<p:outputLabel id="lblmncp" style="font-weight:bold"
+						value="#{painelBuscaFornecedorControllerBean.fornecedorSelecionado.municipio}" />
+
+					<p:outputLabel for="lblzn" value="Zona" />
+					<p:outputLabel id="lblzn" style="font-weight:bold"
+						value="#{painelBuscaFornecedorControllerBean.fornecedorSelecionado.zona}" />
+
+					<p:outputLabel for="lblbrr" value="Bairro" />
+					<p:outputLabel id="lblbrr" style="font-weight:bold"
+						value="#{painelBuscaFornecedorControllerBean.fornecedorSelecionado.bairro}" />
+
+					<p:outputLabel for="lblend" value="Endereço" />
+					<p:outputLabel id="lblend" style="font-weight:bold"
+						value="#{painelBuscaFornecedorControllerBean.fornecedorSelecionado.endereco}" />
+
+					<p:outputLabel for="lblddd" value="ddd" />
+					<p:inputMask id="lblddd" readonly="true" style="font-weight:bold"
+						value="#{painelBuscaFornecedorControllerBean.fornecedorSelecionado.ddd}"
+						mask="(99)" />
+
+					<p:outputLabel for="lbltel" value="Telefone" />
+					<p:inputMask id="lbltel" readonly="true" style="font-weight:bold"
+						value="#{painelBuscaFornecedorControllerBean.fornecedorSelecionado.telefone}"
+						mask="99999-9999" />
+
+					<p:commandButton value="Fechar" class="btn btn-dark btn-block"
+						action="#{painelBuscaFornecedorControllerBean.atualizarVisaoTelaPesquisa()}"
+						update="growl,frmpnlsrv" process="growl,frmpnlsrv" />
+					<p:commandButton value="Agendar Horário"
+						class="btn btn-dark btn-block"
+						action="#{painelBuscaFornecedorControllerBean.agendar()}"
+						update="growl,frmpnlsrv" process="growl,frmpnlsrv" />
+
+				</p:panelGrid>
+			</p:panel>
+			<p:panel id="pnlagenda"
+				header="#{painelBuscaFornecedorControllerBean.montarHeaderAgendamento()}"
+				rendered="#{painelBuscaFornecedorControllerBean.modoAgendamento()}">
+				<p:schedule id="scAgndProf" 
+					value="#{painelBuscaFornecedorControllerBean.eventModel}"
+					widgetVar="scAgndProf">
+		            <p:ajax event="dateSelect" listener="#{painelBuscaFornecedorControllerBean.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+		            <p:ajax event="eventSelect" listener="#{painelBuscaFornecedorControllerBean.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+				</p:schedule>
+
+				<p:dialog widgetVar="eventDialog" header="Agendar Horário"
+					showEffect="clip" hideEffect="clip">
+					<h:panelGrid id="eventDetails" columns="2">
+						<p:outputLabel for="title" value="Título:" />
+						<p:inputText id="title" value="#{painelBuscaFornecedorControllerBean.event.title}"
+							required="true" />
+
+						<p:outputLabel for="from" value="Início:" />
+						<p:datePicker id="from"
+							value="#{painelBuscaFornecedorControllerBean.event.startDate}" pattern="dd/MM/yyyy"
+							showTime="true" appendTo="@(body)" >
+						</p:datePicker>
+
+						<p:outputLabel for="cmbtppg" value="Tipo de Pagamento:" />
+						<p:selectOneMenu id="cmbtppg" value="#{painelBuscaFornecedorControllerBean.tipoPagamento}"
+							style="width:125px">
+							<f:selectItem itemLabel="Dinheiro" itemValue="1" />
+							<f:selectItem itemLabel="Cartão de Crédito" itemValue="2" />
+						</p:selectOneMenu>
+
+						<p:commandButton id="addButton" value="Agendar"
+							action="#{painelBuscaFornecedorControllerBean.gravarAgendamento()}"
+							oncomplete="PF('eventDialog').hide();" update="scAgndProf" />
+					</h:panelGrid>
+				</p:dialog>
+			</p:panel>
+
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

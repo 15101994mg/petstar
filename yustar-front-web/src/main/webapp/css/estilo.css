@@ -1,0 +1,151 @@
+.dev_head{
+  
+  top: 0;
+  padding: 0px;
+  position: fixed;
+  left: 0;
+  width: 100%;
+  height: 75px;
+  background-color: #33528c;
+  color: #FAFAFA;
+  font-size: 15px;	
+  z-index:0; 
+}
+
+.title{
+	padding: -20px;
+}
+
+.dev_body{
+	padding-top:60px;
+	padding-left:20px !important;
+	z-index:-200;
+	max-width:1200px;
+	align: center;
+}
+
+
+p{
+	text-align: justify;
+}
+
+.logon_img{
+  padding-top:5px;
+  float:right;
+  padding-right:75px;
+  width: 50px;
+  height: 50px;
+  z-index:100002;
+
+}
+
+#lg, #imglusu{
+  padding: 0px;
+  background-color: #ddd;
+  border-radius: 100%;
+  height: 200px;
+  object-fit: cover;
+  width: 50px;
+  height: 50px;
+  padding-left:-10px;
+  border-radius: 100%;
+  height:49px;
+  width:49px;
+  z-index:-2;
+  -webkit-box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.77);
+  -moz-box-shadow:    0px 0px 7px rgba(0, 0, 0, 0.77);
+  box-shadow:         0px 0p0 7px rgba(0, 0, 0, 0.77);
+}
+
+.header_right{
+	float:right;
+}
+
+
+.header_left{
+	float:left;
+	padding-left:10px;
+}
+
+.insttitle{
+	padding-top:0px;
+    font-size:15px;
+
+}
+
+
+.item {
+    position:relative;
+    padding-top:10px;
+    padding-right: 10px;
+    display:inline-block;
+}
+.notify-badge{
+    position: absolute;
+    right:45px;
+    top:-1px;
+    background:#2c9601;
+    text-align: center;
+    border-radius: 100px 100px 100px 100px;
+    color:#FAFAFA;
+    padding:10px 10px;
+    font-size:8px;
+}
+
+.clpnlusu{
+    background-color:#33528c;
+    top: 72px !important;
+    color:#FAFAFA;
+    width:200px !important;
+}
+
+.clpnlusu hr{
+	position: relative;
+	background-color:#FAFAFA;
+}
+
+.imgpnlusu{
+
+}
+
+.dvpnlusu{
+    padding:5px;
+    align:center;
+    text-align:center;
+    position:relative;	
+    font-size:15px;
+}
+
+.mnuhamb{
+	color:#33528c !important;
+	background-color: #ffffff00 !important;
+    padding-top: 85px;
+    margin-left: 5px;    
+	width:35px !important;
+	height: 32px !important;
+    border-radius: 0% !important;
+    transition: margin-left .2s;
+
+    -webkit-transform:rotate(360deg);
+    -moz-transform:rotate(360deg); 
+    -o-transform:rotate(360deg);
+    	
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
+    -o-transition-duration: 0.2s;
+    transition-duration: 0.2s;	
+}
+
+.toggleBtnHamb{
+	margin-left: 255px !important;
+
+    -webkit-transform:rotate(360deg);
+    -moz-transform:rotate(360deg); 
+    -o-transform:rotate(360deg);
+    	
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
+    -o-transition-duration: 0.2s;
+    transition-duration: 0.2s;	
+}
+

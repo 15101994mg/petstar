@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:comp="http://www.devskin.com.br/componentepadrao"
+	xmlns:sec="http://www.develop.com/seguranca"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<ui:composition
+	template="/pages/protected/dash/home/home_principal.xhtml">
+	<ui:define name="body">
+
+		<h:form id="frmteste" prependId="false">
+			<div class="bodyPrincipal">
+				<div class="divHeaderTela py-2">
+					<div class="container-fluid">
+						<h3 class="text-white">Empresas - Configuração de DRE</h3>
+						<p:separator />
+
+					</div>
+				</div>
+
+				<div class="container-fluid mt-2">
+					<div class="ui-grid ui-grid-responsive">
+						<div class="ui-grid-row">
+							<div class="ui-grid-col-12">
+								<div class="ui-grid ui-grid-responsive">
+									<div class="ui-grid-row">
+										<div class="ui-grid-col-12">
+											<p:panel id="empresa"
+												header="Configurações do DRE das Empresas"
+												style="margin-bottom:20px">
+												<p:messages id="messagesG" showDetail="true" closable="true">
+													<p:autoUpdate />
+												</p:messages>
+												<p:outputPanel
+													rendered="#{!cadastroConfiguracaoDreController.edicao}">
+
+													<p:dataTable id="basicEmpresa" var="e" rowHover="true"
+														reflow="true" scrollHeight="550" scrollable="true"
+														emptyMessage="Nenhuma empresa encontrada"
+														rowIndexVar="indexVar" style="min-height: 550px;"
+														value="#{cadastroConfiguracaoDreController.empresas}">
+
+														<p:column headerText="Id" width="15%">
+															<h:outputText value="#{e.id}" />
+														</p:column>
+														<p:column headerText="Nome" width="80%">
+															<h:outputText value="#{e.nomeEmpresa}" />
+														</p:column>
+
+														<p:column style="text-align: center" width="5%">
+															<p:commandButton update="empresa" icon="pi pi-table"
+																title="Configuração DRE"
+																action="#{cadastroConfiguracaoDreController.selecionarConfiguracaoDre(e)}">
+															</p:commandButton>
+														</p:column>
+													</p:dataTable>
+
+												</p:outputPanel>
+												<p:outputPanel
+													rendered="#{cadastroConfiguracaoDreController.edicao}">
+													<p:dataTable id="basicConfiguraces" var="c" rowHover="true"
+														reflow="true" scrollHeight="500" scrollable="true"
+														rowIndexVar="indexVar" style="min-height: 500px;"
+														emptyMessage="Nenhuma configuração encontrada"
+														value="#{cadastroConfiguracaoDreController.configuracoes}">
+
+														<p:column headerText="Ordem" width="5%"
+															style="#{c.estilo}">
+															<h:outputText value="#{c.numeroOrdem}" />
+														</p:column>
+														<p:column headerText="Código" width="10%"
+															style="#{c.estilo}">
+															<h:outputText value="#{c.codigoSigla}" />
+														</p:column>
+														<p:column headerText="Nome" width="20%"
+															style="#{c.estilo}">
+															<h:outputText value="#{c.nome}" />
+														</p:column>
+														<p:column headerText="Tipo" width="20%"
+															style="#{c.estilo}">
+															<h:outputText value="#{c.tipoInformacaoDesc}" />
+														</p:column>
+														<p:column headerText="Fórmula" width="40%"
+															style="#{c.estilo}">
+															<h:outputText value="#{c.formulaCalculo}" />
+														</p:column>
+
+														<p:column style="text-align: center" width="5%">
+															<p:commandButton update="panelconf" icon="pi pi-pencil"
+																title="Configuração DRE"
+																oncomplete="PF('dConfiguracaoDre').show()">
+																<f:setPropertyActionListener value="#{c}"
+																	target="#{cadastroConfiguracaoDreController.configuracaoDTO}" />
+															</p:commandButton>
+														</p:column>
+													</p:dataTable>
+													<p:toolbar>
+														<f:facet name="right">
+															<h:panelGrid columns="2">
+																<p:commandButton value="Salvar" id="saveId" class="mr-2"
+																	action="#{cadastroConfiguracaoDreController.salvar}"
+																	update="messagesG,empresa" icon="pi pi-save" />
+
+																<p:commandButton value="Cancelar" id="cancelId"
+																	action="#{cadastroConfiguracaoDreController.cancelar}"
+																	update="messagesG,empresa"
+																	icon="pi pi-exclamation-circle" />
+															</h:panelGrid>
+														</f:facet>
+													</p:toolbar>
+
+												</p:outputPanel>
+											</p:panel>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<p:dialog header="Preencha a configuração DRE" id="DConfiguracaoDre"
+				widgetVar="dConfiguracaoDre" modal="true" showEffect="fade"
+				hideEffect="fade" resizable="false" width="700" focus="edtNome">
+				<p:outputPanel id="panelconf">
+					<div class="row mb-2">
+						<div class="col">
+							<div class="form-group">
+								<p:outputLabel for="@next" value="Nome" style="font-weight:bold" />
+								<p:inputText placeholder="Nome" id="edtNome"
+									styleClass="consinput"
+									value="#{cadastroConfiguracaoDreController.configuracaoDTO.nome}" />
+							</div>
+						</div>
+					</div>
+					<div class="row mb-2">
+						<div class="col-6">
+							<div class="form-group">
+								<p:outputLabel for="@next" value="Ordem"
+									style="font-weight:bold" />
+								<p:spinner placeholder="Ordem" id="number"
+									styleClass="consinput" min="0" max="100"
+									value="#{cadastroConfiguracaoDreController.configuracaoDTO.numeroOrdem}">
+									<f:convertNumber integerOnly="true" />
+								</p:spinner>
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="form-group">
+								<p:outputLabel for="@next" value="Tipo" style="font-weight:bold" />
+								<p:selectOneRadio id="tipo"
+									value="#{cadastroConfiguracaoDreController.configuracaoDTO.tipoInformacao}"
+									unselectable="true">
+									<f:selectItem itemLabel="Simples" itemValue="1" />
+									<f:selectItem itemLabel="Agregação" itemValue="2" />
+								</p:selectOneRadio>
+							</div>
+						</div>
+					</div>
+					<div class="row mb-2">
+						<div class="col">
+							<div class="form-group">
+								<p:outputLabel for="advanced" value="Fórmula:" style="font-weight:bold" />
+								<p:selectManyMenu id="advanced"
+									value="#{cadastroConfiguracaoDreController.camposFormula}"
+									filter="true" filterMatchMode="contains" showCheckbox="true">
+									<f:selectItems
+										value="#{cadastroConfiguracaoDreController.camposDisponiveis}"
+										var="campo" itemLabel="#{campo}" itemValue="#{campo}" />
+								</p:selectManyMenu>
+							</div>
+						</div>
+					</div>
+					<p:toolbar>
+						<f:facet name="right">
+							<p:commandButton value="Salvar"
+								action="#{cadastroConfiguracaoDreController.salvar}"
+								update="basicConfiguraces" oncomplete="PF('dConfiguracaoDre').hide()"/>
+						</f:facet>
+					</p:toolbar>
+
+				</p:outputPanel>
+			</p:dialog>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

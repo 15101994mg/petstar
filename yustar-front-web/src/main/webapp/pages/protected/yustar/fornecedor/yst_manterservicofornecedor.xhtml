@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:comp="http://www.devskin.com.br/componentepadrao"
+	xmlns:sec="http://www.develop.com/seguranca"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<ui:composition
+	template="/pages/protected/dash/home/home_principal.xhtml">
+	<ui:define name="body">
+
+		<h:form id="frmpnlsrv" enctype="multipart/form-data">
+			<h2>Serviços do Fornecedor</h2>
+			<p class="text-muted mb-3">
+				<h:outputText
+					value="#{cadastroServicoFornecedorControllerBean.usuario.nome}" />
+			</p>
+			<hr data-content="AND" style="background: #999; height: 1px;" />
+			<p:growl globalOnly="true" showDetail="true" autoUpdate="true"
+				id="growl" widgetVar="Growl" sticky="true" />
+
+			<p:panelGrid layout="grid" styleClass="showcase-text-align-center"
+				columns="1"
+				rendered="#{cadastroServicoFornecedorControllerBean.visualizarGrid()}">
+
+				<p:panel header="Filtro">
+					<p:panelGrid columns="5" layout="grid"
+						styleClass="showcase-text-align-center">
+
+						<p:autoComplete id="acsrvc" minQueryLength="3"
+							value="#{cadastroServicoFornecedorControllerBean.tipoServico}"
+							placeholder="Tipo de Serviço"
+							emptyMessage="Nenhum resultado encontrado" var="s"
+							itemLabel="#{s.nome}" itemValue="#{s}"
+							converter="entityConverter"
+							completeMethod="#{cadastroServicoFornecedorControllerBean.obterServicos}"
+							effect="fade">
+						</p:autoComplete>
+						<h:commandButton value="Pesquisar" class="btn btn-dark btn-block"
+							action="#{cadastroServicoFornecedorControllerBean.pesquisar()}"
+							update="growl,frmpnlsrv" process="growl,frmpnlsrv" />
+						<h:commandButton value="Novo"
+							class="btn btn-dark btn-block"
+							action="#{cadastroServicoFornecedorControllerBean.novoServico()}"
+							update="growl,frmpnlsrv" process="growl,frmpnlsrv" />
+						<h:commandButton update="frmpnlsrv" class="btn btn-dark btn-block"
+							action="#{cadastroServicoFornecedorControllerBean.editarServico()}"
+							value="Editar" />
+
+						<p:commandButton value="Excluir"
+							action="#{cadastroServicoFornecedorControllerBean.excluirServico()}"
+							update="frmpnlsrv" class="btn btn-dark btn-block">
+							<p:confirm header="Exclusão"
+								message="Deseja excluir a(s) configuração(oes) selecionada(s)?"
+								icon="pi pi-exclamation-triangle" />
+						</p:commandButton>
+
+						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+							<p:commandButton value="Sim" type="button" class="btn btn-dark btn-block"
+								styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+							<p:commandButton value="Não" type="button" class="btn btn-dark btn-block"
+								styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+						</p:confirmDialog>
+
+					</p:panelGrid>
+				</p:panel>
+				<p:dataTable var="c" sortMode="multiple" id="tblgrid"
+					value="#{cadastroServicoFornecedorControllerBean.configuracoes}"
+					scrollHeight="270" scrollable="true" rowIndexVar="indexVar"
+					style="min-height: 20px;" rowHover="true" reflow="true"
+					emptyMessage="Nenhum Serviço importado">
+					<p:column headerText="#">
+						<p:selectBooleanCheckbox value="#{c.selecionado}" />
+					</p:column>
+					<p:column headerText="Tipo de Serviço">
+						<h:outputText value="#{c.nomeServico}" />
+					</p:column>
+					<p:column headerText="Tempo do Serviço">
+						<h:outputText value="#{c.tempoServico}" />
+					</p:column>
+					<p:column headerText="De">
+						<h:outputText value="#{c.horaInicio}" />
+					</p:column>
+					<p:column headerText="Até">
+						<h:outputText value="#{c.horaFim}" />
+					</p:column>
+					<p:column headerText="Atende domicílio?">
+						<h:outputText value="#{c.obterAtendeDomicilio()}" />
+					</p:column>
+				</p:dataTable>
+
+			</p:panelGrid>
+
+			<p:panelGrid layout="grid" columns="1"
+				styleClass="showcase-text-align-center"
+				rendered="#{!cadastroServicoFornecedorControllerBean.visualizarGrid()}">
+				<h:panelGrid columns="2" layout="grid"
+					styleClass="showcase-text-align-center">
+					<p:outputLabel for="acgrvtp" value="Tipo de Serviço" />
+					<p:autoComplete id="acgrvtp" minQueryLength="3"
+						value="#{cadastroServicoFornecedorControllerBean.tipoServicoGravacao}"
+						emptyMessage="Nenhum resultado encontrado" var="g"
+						itemLabel="#{g.nome}" itemValue="#{g}" converter="entityConverter"
+						completeMethod="#{cadastroServicoFornecedorControllerBean.obterServicos}"
+						effect="fade">
+					</p:autoComplete>
+					<p:outputLabel for="tptserv" value="Tempo do Serviço" />
+					<p:inputMask id="tptserv"
+						value="#{cadastroServicoFornecedorControllerBean.tempoServico}"
+						mask="99:99" />
+
+					<p:outputLabel for="tpiniatd" value="Início do atendimento" />
+					<p:inputMask id="tpiniatd"
+						value="#{cadastroServicoFornecedorControllerBean.inicioAtendimento}"
+						mask="99:99" />
+
+					<p:outputLabel for="tpfimatd" value="Fim do atendimento" />
+					<p:inputMask id="tpfimatd"
+						value="#{cadastroServicoFornecedorControllerBean.fimAtendimento}"
+						mask="99:99" />
+
+
+					<p:outputLabel for="txvalserv" value="Valor do serviço" />
+					<p:inputNumber id="txvalserv"
+						value="#{cadastroServicoFornecedorControllerBean.configuracaoServicoGravacao.valorServico}"
+						symbolPosition="s" decimalSeparator="," thousandSeparator="." />
+
+					<p:outputLabel for="tsdom" value="Atende à domicílio?" />
+					<p:toggleSwitch
+						value="#{cadastroServicoFornecedorControllerBean.configuracaoServicoGravacao.atendeDomicilio}"
+						id="tsdom" />
+					<p:outputLabel for="itdsts" value="Descrição" />
+					<p:inputTextarea rows="6" cols="33" id="itdsts"
+						value="#{cadastroServicoFornecedorControllerBean.configuracaoServicoGravacao.descricaoServico}"
+						autoResize="true" />
+
+				</h:panelGrid>
+
+				<p:panelGrid columns="3" layout="grid" id="pnltp"
+					styleClass="showcase-text-align-center">
+					<p:commandButton id="btcncltp" update="frmpnlsrv"
+						action="#{cadastroServicoFornecedorControllerBean.cancelarServico()}"
+						value="Cancelar" />
+					<p:commandButton id="btsvtp"
+						action="#{cadastroServicoFornecedorControllerBean.gravarServico()}"
+						value="Salvar" update="frmpnlsrv" process="@form" />
+				</p:panelGrid>
+			</p:panelGrid>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

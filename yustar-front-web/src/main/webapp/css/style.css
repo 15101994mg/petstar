@@ -1,0 +1,49 @@
+body {
+  background: #333;
+  color: white;
+}
+
+.navbar {
+  border-bottom: #008ed6 3px solid;
+  opacity: 0.8;
+}
+
+#home-section {
+  background-image: url(img/cadeira_1.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  min-height: 700px;
+}
+
+#home-section .dark-overlay {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  min-height: 700px;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+#home-section .home-inner {
+  padding-top: 120px;
+}
+
+#home-section .card-form {
+  opacity: 0.8;
+}
+
+#home-section .fas {
+  color: #008ed6;
+  background: white;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+#quemsomos-explore-section .fas {
+  color: white;
+  background: #333;
+  padding: 5px;
+  border-radius: 5px;
+}
+

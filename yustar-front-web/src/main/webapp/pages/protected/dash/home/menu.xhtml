@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:comp="http://www.devskin.com.br/componentepadrao"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<ui:composition>
+	<i class="mnuhamb fas fa-bars fa-3x" id="btnhamb"
+		onclick="rendermenu()"></i>
+	<nav jsf:id="menu" class="main-menu">
+	<div>
+		<a class="logo" href="#"> </a>
+	</div>
+	<div class="settings" />
+	<div class="scrollbar" id="style-1">
+		<ul>
+			<li><a href="#"> <i class="fa fa-home fa-lg"> </i> <span
+					class="nav-text">Home</span>
+			</a></li>
+			<comp:menuitem rendered="#{PermissaoFrontService.autorizar('DSH001')}" linkmenu="CADASTRO_USUARIO" nomemenu="Usuários"/>
+			<comp:menuitem rendered="true" linkmenu="CADASTRO_INSTITUICAO" nomemenu="Instituições"/>
+			<comp:menuitem rendered="true" linkmenu="CADASTRO_GRUPO" nomemenu="Grupos de Empresas"/>
+			<comp:menuitem rendered="true" linkmenu="CADASTRO_EMPRESA" nomemenu="Empresas"/>
+			<comp:menuitem rendered="true" linkmenu="CADASTRO_PLANOCONTA" nomemenu="Plano de Contas"/>
+			<comp:menuitem rendered="true" linkmenu="IMPORTACAO_RAZAO" nomemenu="Importação Razão"/>
+			<comp:menuitem rendered="true" linkmenu="IMPORTACAO_BALANCETE" nomemenu="Importação Balancete"/>
+		</ul>
+	</div>
+	</nav>
+</ui:composition>
+</html>

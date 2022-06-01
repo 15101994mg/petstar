@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:comp="http://www.devskin.com.br/componentepadrao"
+	xmlns:sec="http://www.develop.com/seguranca"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<ui:composition
+	template="/pages/protected/dash/home/home_principal.xhtml">
+	<ui:define name="body">
+
+		<h:form id="formDados" prependId="false">
+			<div class="bodyPrincipal">
+				<div class="divHeaderTela py-2">
+					<div class="container-fluid">
+						<h2 class="text-white">Dados da Instituição</h2>
+						<p:separator />
+
+					</div>
+				</div>
+
+				<div class="container-fluid">
+					<div class="ui-fluid my-3">
+						<div class="p-field">
+							<h4>Nome da Instituição</h4>
+							<p:inputText id="name1" value="Instituição de Teste" />
+						</div>
+
+					</div>
+
+					<p:panel id="basic" header="Grupo Empresa"
+						style="margin-bottom:20px">
+						<p:messages id="messagesG" showDetail="true" closable="true">
+							<p:autoUpdate />
+						</p:messages>
+						<p:outputPanel rendered="#{!cadastroGrupoController.selecionado}">
+							<p:toolbar>
+								<f:facet name="right">
+									<p:commandButton process="basic" id="btnPesqCon"
+										title="Novo Grupo" update="basic"
+										action="#{cadastroGrupoController.novoGrupo}"
+										icon="pi pi-plus" value="Novo Grupo" />
+								</f:facet>
+							</p:toolbar>
+							<p:dataTable id="basicGrupo" var="grupo" rowHover="true"
+								reflow="true" scrollHeight="250" scrollable="true"
+								rowIndexVar="indexVar" style="min-height: 250px;"
+								value="#{cadastroGrupoController.grupos}">
+
+								<p:column headerText="Id" width="10%">
+									<h:outputText value="#{grupo.id}" />
+								</p:column>
+								<p:column headerText="Nome" width="60%">
+									<h:outputText value="#{grupo.nome}" />
+								</p:column>
+								<p:column headerText="Máscara Contábil" width="25%">
+									<h:outputText value="#{grupo.mascaraContabil}" />
+								</p:column>
+
+								<p:column style="text-align: center" width="5%">
+									<p:commandButton update="basic" icon="pi pi-pencil"
+										title="Editar">
+										<f:setPropertyActionListener value="#{grupo}"
+											target="#{cadastroGrupoController.grupoSelecionado}" />
+									</p:commandButton>
+								</p:column>
+							</p:dataTable>
+
+						</p:outputPanel>
+						<p:outputPanel rendered="#{cadastroGrupoController.selecionado}"
+							id="outgedit">
+							<div class="ui-fluid mb-2">
+								<div class="p-field">
+									<p:outputLabel for="gNome" value="Nome" />
+									<p:inputText id="gNome"
+										value="#{cadastroGrupoController.grupoSelecionado.nome}" />
+								</div>
+								<div class="p-field">
+									<p:outputLabel for="gMascara" value="Máscara Contábil" />
+									<p:inputText id="gMascara"
+										value="#{cadastroGrupoController.grupoSelecionado.mascaraContabil}" />
+								</div>
+								<div class="p-field">
+									<p:outputLabel for="gDataCadastro" value="Cadastro" />
+									<comp:calendarComp id="gDataCadastro"
+										value="#{cadastroGrupoController.grupoSelecionado.dataCadastro}"
+										styleClass="ui-grid ui-grid-row" title="Data de Cadastro"
+										mode="popup" />
+
+								</div>
+							</div>
+							<p:toolbar>
+								<f:facet name="right">
+									<h:panelGrid columns="2">
+										<p:commandButton value="Salvar" id="saveId" class="mr-2"
+											action="#{cadastroGrupoController.salvar}"
+											update="messagesG,basic" icon="pi pi-save" />
+
+										<p:commandButton value="Cancelar" id="cancelId"
+											action="#{cadastroGrupoController.cancelar}"
+											update="messagesG,basic" icon="pi pi-exclamation-circle" />
+									</h:panelGrid>
+								</f:facet>
+							</p:toolbar>
+
+
+
+						</p:outputPanel>
+					</p:panel>
+
+				</div>
+
+			</div>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>
